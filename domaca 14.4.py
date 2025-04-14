@@ -15,3 +15,25 @@ for y in range(vyska):
 
 obr.show()
 obr.save("opticky_stvorec.png")
+
+
+
+
+#jpg na gif
+from PIL import Image
+
+obr = Image.open("obrazok.jpg")
+sirka, vyska = obr.size
+
+obr_novy = Image.new("P", (sirka, vyska)) #'P'=paletový – vhodný pre GIF
+
+pixels_old = obr.load()
+pixels_new = obr_novy.load()
+
+for y in range(vyska):
+    for x in range(sirka):
+        priemer = (pixels_old[x, y][0] + pixels_old[x, y][1] + pixels_old[x, y][2]) // 3 # priemer RGB
+        pixels_new[x, y] = priemer
+
+obr_novy.save("novy_obrazok.gif")
+obr_novy.show()
